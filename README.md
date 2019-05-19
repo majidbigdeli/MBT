@@ -1,4 +1,4 @@
-MBT - TCP Server/Client Communication and RMI Framework
+MBT - TCP Server/Client and Remote Method Invocation Framework
 ======================================================================
 
 ### What is MBT?
