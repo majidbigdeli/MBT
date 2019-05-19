@@ -1,4 +1,4 @@
-MBT - TCP Server/Client
+MBT - TCP Server/Client Communication
 ======================================================================
 
 ### What is MBT?
