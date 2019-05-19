@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="Hik.Communication.Mbt.Client.MbtClientBase" Collapsed="true">
+    <Position X="1" Y="4.75" Width="4" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Events" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>CAQAAAIAQCABZCwQACAAAKQAAAAQAAIAAQEAAgAEQgA=</HashCode>
+      <FileName>Communication\Mbt\Client\MbtClientBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Hik.Communication.Mbt.Client.Tcp.MbtTcpClient">
+    <Position X="1" Y="5.75" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAQAAAA=</HashCode>
+      <FileName>Communication\Mbt\Client\Tcp\MbtTcpClient.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Hik.Communication.Mbt.Client.IConnectableClient">
+    <Position X="3.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAQAgAAAAAAIAAAAAAAAAAAAAAAgAEAAA=</HashCode>
+      <FileName>Communication\Mbt\Client\IConnectableClient.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Hik.Communication.Mbt.Client.IMbtClient" Collapsed="true">
+    <Position X="2" Y="3.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Communication\Mbt\Client\IMbtClient.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Hik.Communication.Mbt.Communication.IMessenger">
+    <Position X="0.5" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAIAQQACAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Communication\Mbt\Communication\IMessenger.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

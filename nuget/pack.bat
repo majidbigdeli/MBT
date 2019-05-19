@@ -1,0 +1,1 @@
+"NuGet.exe" "pack" "..\src\Mbt\Mbt.csproj" -Properties Configuration=Release -IncludeReferencedProjects -Symbols

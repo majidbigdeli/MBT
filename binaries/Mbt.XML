@@ -1,0 +1,2697 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Mbt</name>
+    </assembly>
+    <members>
+        <member name="T:Hik.Collections.ThreadSafeSortedList`2">
+            <summary>
+            This class is used to store key-value based items in a thread safe manner.
+            It uses System.Collections.Generic.SortedList internally.
+            </summary>
+            <typeparam name="TK">Key type</typeparam>
+            <typeparam name="TV">Value type</typeparam>
+        </member>
+        <member name="P:Hik.Collections.ThreadSafeSortedList`2.Item(`0)">
+            <summary>
+            Gets/adds/replaces an item by key.
+            </summary>
+            <param name="key">Key to get/set value</param>
+            <returns>Item associated with this key</returns>
+        </member>
+        <member name="P:Hik.Collections.ThreadSafeSortedList`2.Count">
+            <summary>
+            Gets count of items in the collection.
+            </summary>
+        </member>
+        <member name="F:Hik.Collections.ThreadSafeSortedList`2._items">
+            <summary>
+            Internal collection to store items.
+            </summary>
+        </member>
+        <member name="F:Hik.Collections.ThreadSafeSortedList`2._lock">
+            <summary>
+            Used to synchronize access to _items list.
+            </summary>
+        </member>
+        <member name="M:Hik.Collections.ThreadSafeSortedList`2.#ctor">
+            <summary>
+            Creates a new ThreadSafeSortedList object.
+            </summary>
+        </member>
+        <member name="M:Hik.Collections.ThreadSafeSortedList`2.ContainsKey(`0)">
+            <summary>
+            Checks if collection contains spesified key.
+            </summary>
+            <param name="key">Key to check</param>
+            <returns>True; if collection contains given key</returns>
+        </member>
+        <member name="M:Hik.Collections.ThreadSafeSortedList`2.ContainsValue(`1)">
+            <summary>
+            Checks if collection contains spesified item.
+            </summary>
+            <param name="item">Item to check</param>
+            <returns>True; if collection contains given item</returns>
+        </member>
+        <member name="M:Hik.Collections.ThreadSafeSortedList`2.Remove(`0)">
+            <summary>
+            Removes an item from collection.
+            </summary>
+            <param name="key">Key of item to remove</param>
+        </member>
+        <member name="M:Hik.Collections.ThreadSafeSortedList`2.GetAllItems">
+            <summary>
+            Gets all items in collection.
+            </summary>
+            <returns>Item list</returns>
+        </member>
+        <member name="M:Hik.Collections.ThreadSafeSortedList`2.ClearAll">
+            <summary>
+            Removes all items from list.
+            </summary>
+        </member>
+        <member name="M:Hik.Collections.ThreadSafeSortedList`2.GetAndClearAllItems">
+            <summary>
+            Gets then removes all items in collection.
+            </summary>
+            <returns>Item list</returns>
+        </member>
+        <member name="T:Hik.Communication.MbtServices.Client.IMbtServiceClient`1">
+            <summary>
+            Represents a service client that consumes a MBT service.
+            </summary>
+            <typeparam name="T">Type of service interface</typeparam>
+        </member>
+        <member name="P:Hik.Communication.MbtServices.Client.IMbtServiceClient`1.ServiceProxy">
+            <summary>
+            Reference to the service proxy to invoke remote service methods.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.MbtServices.Client.IMbtServiceClient`1.Timeout">
+            <summary>
+            Timeout value when invoking a service method.
+            If timeout occurs before end of remote method call, an exception is thrown.
+            Use -1 for no timeout (wait indefinite).
+            Default value: 60000 (1 minute).
+            </summary>
+        </member>
+        <member name="T:Hik.Communication.MbtServices.Client.MbtServiceClient`1">
+            <summary>
+            Represents a service client that consumes a MBT service.
+            </summary>
+            <typeparam name="T">Type of service interface</typeparam>
+        </member>
+        <member name="E:Hik.Communication.MbtServices.Client.MbtServiceClient`1.Connected">
+            <summary>
+            This event is raised when client connected to server.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.MbtServices.Client.MbtServiceClient`1.Disconnected">
+            <summary>
+            This event is raised when client disconnected from server.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.MbtServices.Client.MbtServiceClient`1.ConnectTimeout">
+            <summary>
+            Timeout for connecting to a server (as milliseconds).
+            Default value: 15 seconds (15000 ms).
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.MbtServices.Client.MbtServiceClient`1.CommunicationState">
+            <summary>
+            Gets the current communication state.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.MbtServices.Client.MbtServiceClient`1.ServiceProxy">
+            <summary>
+            Reference to the service proxy to invoke remote service methods.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.MbtServices.Client.MbtServiceClient`1.Timeout">
+            <summary>
+            Timeout value when invoking a service method.
+            If timeout occurs before end of remote method call, an exception is thrown.
+            Use -1 for no timeout (wait indefinite).
+            Default value: 60000 (1 minute).
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.MbtServices.Client.MbtServiceClient`1._client">
+            <summary>
+            Underlying IMbtClient object to communicate with server.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.MbtServices.Client.MbtServiceClient`1._requestReplyMessenger">
+            <summary>
+            Messenger object to send/receive messages over _client.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.MbtServices.Client.MbtServiceClient`1._realServiceProxy">
+            <summary>
+            This object is used to create a transparent proxy to invoke remote methods on server.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.MbtServices.Client.MbtServiceClient`1._clientObject">
+            <summary>
+            The client object that is used to call method invokes in client side.
+            May be null if client has no methods to be invoked by server.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Client.MbtServiceClient`1.#ctor(Hik.Communication.Mbt.Client.IMbtClient,System.Object)">
+            <summary>
+            Creates a new MbtServiceClient object.
+            </summary>
+            <param name="client">Underlying IMbtClient object to communicate with server</param>
+            <param name="clientObject">The client object that is used to call method invokes in client side.
+            May be null if client has no methods to be invoked by server.</param>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Client.MbtServiceClient`1.Connect">
+            <summary>
+            Connects to server.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Client.MbtServiceClient`1.Disconnect">
+            <summary>
+            Disconnects from server.
+            Does nothing if already disconnected.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Client.MbtServiceClient`1.Dispose">
+            <summary>
+            Calls Disconnect method.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Client.MbtServiceClient`1.RequestReplyMessenger_MessageReceived(System.Object,Hik.Communication.Mbt.Communication.Messages.MessageEventArgs)">
+            <summary>
+            Handles MessageReceived event of messenger.
+            It gets messages from server and invokes appropriate method.
+            </summary>
+            <param name="sender">Source of event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Client.MbtServiceClient`1.SendInvokeResponse(Hik.Communication.Mbt.Communication.Messages.IMbtMessage,System.Object,Hik.Communication.MbtServices.Communication.Messages.MbtRemoteException)">
+            <summary>
+            Sends response to the remote application that invoked a service method.
+            </summary>
+            <param name="requestMessage">Request message</param>
+            <param name="returnValue">Return value to send</param>
+            <param name="exception">Exception to send</param>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Client.MbtServiceClient`1.Client_Connected(System.Object,System.EventArgs)">
+            <summary>
+            Handles Connected event of _client object.
+            </summary>
+            <param name="sender">Source of object</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Client.MbtServiceClient`1.Client_Disconnected(System.Object,System.EventArgs)">
+            <summary>
+            Handles Disconnected event of _client object.
+            </summary>
+            <param name="sender">Source of object</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Client.MbtServiceClient`1.OnConnected">
+            <summary>
+            Raises Connected event.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Client.MbtServiceClient`1.OnDisconnected">
+            <summary>
+            Raises Disconnected event.
+            </summary>
+        </member>
+        <member name="T:Hik.Communication.MbtServices.Client.MbtServiceClientBuilder">
+            <summary>
+            This class is used to build service clients to remotely invoke methods of a MBT service.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Client.MbtServiceClientBuilder.CreateClient``1(Hik.Communication.Mbt.Communication.EndPoints.MbtEndPoint,System.Object)">
+            <summary>
+            Creates a client to connect to a MBT service.
+            </summary>
+            <typeparam name="T">Type of service interface for remote method call</typeparam>
+            <param name="endpoint">EndPoint of the server</param>
+            <param name="clientObject">Client-side object that handles remote method calls from server to client.
+            May be null if client has no methods to be invoked by server</param>
+            <returns>Created client object to connect to the server</returns>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Client.MbtServiceClientBuilder.CreateClient``1(System.String,System.Object)">
+            <summary>
+            Creates a client to connect to a MBT service.
+            </summary>
+            <typeparam name="T">Type of service interface for remote method call</typeparam>
+            <param name="endpointAddress">EndPoint address of the server</param>
+            <param name="clientObject">Client-side object that handles remote method calls from server to client.
+            May be null if client has no methods to be invoked by server</param>
+            <returns>Created client object to connect to the server</returns>
+        </member>
+        <member name="T:Hik.Communication.MbtServices.Communication.AutoConnectRemoteInvokeProxy`2">
+            <summary>
+            This class extends RemoteInvokeProxy to provide auto connect/disconnect mechanism
+            if client is not connected to the server when a service method is called.
+            </summary>
+            <typeparam name="TProxy">Type of the proxy class/interface</typeparam>
+            <typeparam name="TMessenger">Type of the messenger object that is used to send/receive messages</typeparam>
+        </member>
+        <member name="F:Hik.Communication.MbtServices.Communication.AutoConnectRemoteInvokeProxy`2._client">
+            <summary>
+            Reference to the client object that is used to connect/disconnect.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Communication.AutoConnectRemoteInvokeProxy`2.#ctor(Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger{`1},Hik.Communication.Mbt.Client.IConnectableClient)">
+            <summary>
+            Creates a new AutoConnectRemoteInvokeProxy object.
+            </summary>
+            <param name="clientMessenger">Messenger object that is used to send/receive messages</param>
+            <param name="client">Reference to the client object that is used to connect/disconnect</param>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Communication.AutoConnectRemoteInvokeProxy`2.Invoke(System.Runtime.Remoting.Messaging.IMessage)">
+            <summary>
+            Overrides message calls and translates them to messages to remote application.
+            </summary>
+            <param name="msg">Method invoke message (from RealProxy base class)</param>
+            <returns>Method invoke return message (to RealProxy base class)</returns>
+        </member>
+        <member name="T:Hik.Communication.MbtServices.Communication.Messages.MbtRemoteException">
+            <summary>
+            Represents a MBT Remote Exception.
+            This exception is used to send an exception from an application to another application.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Communication.Messages.MbtRemoteException.#ctor">
+            <summary>
+            Contstructor.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Communication.Messages.MbtRemoteException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Contstructor.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Communication.Messages.MbtRemoteException.#ctor(System.String)">
+            <summary>
+            Contstructor.
+            </summary>
+            <param name="message">Exception message</param>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Communication.Messages.MbtRemoteException.#ctor(System.String,System.Exception)">
+            <summary>
+            Contstructor.
+            </summary>
+            <param name="message">Exception message</param>
+            <param name="innerException">Inner exception</param>
+        </member>
+        <member name="T:Hik.Communication.MbtServices.Communication.Messages.MbtRemoteInvokeMessage">
+            <summary>
+            This message is sent to invoke a method of a remote application.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.MbtServices.Communication.Messages.MbtRemoteInvokeMessage.ServiceClassName">
+            <summary>
+            Name of the remove service class.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.MbtServices.Communication.Messages.MbtRemoteInvokeMessage.MethodName">
+            <summary>
+            Method of remote application to invoke.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.MbtServices.Communication.Messages.MbtRemoteInvokeMessage.Parameters">
+            <summary>
+            Parameters of method.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Communication.Messages.MbtRemoteInvokeMessage.ToString">
+            <summary>
+            Represents this object as string.
+            </summary>
+            <returns>String representation of this object</returns>
+        </member>
+        <member name="T:Hik.Communication.MbtServices.Communication.Messages.MbtRemoteInvokeReturnMessage">
+            <summary>
+            This message is sent as response message to a MbtRemoteInvokeMessage.
+            It is used to send return value of method invocation.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.MbtServices.Communication.Messages.MbtRemoteInvokeReturnMessage.ReturnValue">
+            <summary>
+            Return value of remote method invocation.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.MbtServices.Communication.Messages.MbtRemoteInvokeReturnMessage.RemoteException">
+            <summary>
+            If any exception occured during method invocation, this field contains Exception object.
+            If no exception occured, this field is null.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Communication.Messages.MbtRemoteInvokeReturnMessage.ToString">
+            <summary>
+            Represents this object as string.
+            </summary>
+            <returns>String representation of this object</returns>
+        </member>
+        <member name="T:Hik.Communication.MbtServices.Communication.RemoteInvokeProxy`2">
+            <summary>
+            This class is used to generate a dynamic proxy to invoke remote methods.
+            It translates method invocations to messaging.
+            </summary>
+            <typeparam name="TProxy">Type of the proxy class/interface</typeparam>
+            <typeparam name="TMessenger">Type of the messenger object that is used to send/receive messages</typeparam>
+        </member>
+        <member name="F:Hik.Communication.MbtServices.Communication.RemoteInvokeProxy`2._clientMessenger">
+            <summary>
+            Messenger object that is used to send/receive messages.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Communication.RemoteInvokeProxy`2.#ctor(Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger{`1})">
+            <summary>
+            Creates a new RemoteInvokeProxy object.
+            </summary>
+            <param name="clientMessenger">Messenger object that is used to send/receive messages</param>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Communication.RemoteInvokeProxy`2.Invoke(System.Runtime.Remoting.Messaging.IMessage)">
+            <summary>
+            Overrides message calls and translates them to messages to remote application.
+            </summary>
+            <param name="msg">Method invoke message (from RealProxy base class)</param>
+            <returns>Method invoke return message (to RealProxy base class)</returns>
+        </member>
+        <member name="T:Hik.Communication.MbtServices.Service.IMbtServiceApplication">
+            <summary>
+            Represents a MBT Service Application that is used to construct and manage a MBT service.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.MbtServices.Service.IMbtServiceApplication.ClientConnected">
+            <summary>
+            This event is raised when a new client connected to the service.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.MbtServices.Service.IMbtServiceApplication.ClientDisconnected">
+            <summary>
+            This event is raised when a client disconnected from the service.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Service.IMbtServiceApplication.Start">
+            <summary>
+            Starts service application.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Service.IMbtServiceApplication.Stop">
+            <summary>
+            Stops service application.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Service.IMbtServiceApplication.AddService``2(``1)">
+            <summary>
+            Adds a service object to this service application.
+            Only single service object can be added for a service interface type.
+            </summary>
+            <typeparam name="TServiceInterface">Service interface type</typeparam>
+            <typeparam name="TServiceClass">Service class type. Must be delivered from MbtService and must implement TServiceInterface.</typeparam>
+            <param name="service">An instance of TServiceClass.</param>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Service.IMbtServiceApplication.RemoveService``1">
+            <summary>
+            Removes a previously added service object from this service application.
+            It removes object according to interface type.
+            </summary>
+            <typeparam name="TServiceInterface">Service interface type</typeparam>
+            <returns>True: removed. False: no service object with this interface</returns>
+        </member>
+        <member name="T:Hik.Communication.MbtServices.Service.IMbtServiceClient">
+            <summary>
+            Represents a client that uses a SDS service.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.MbtServices.Service.IMbtServiceClient.Disconnected">
+            <summary>
+            This event is raised when client is disconnected from service.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.MbtServices.Service.IMbtServiceClient.ClientId">
+            <summary>
+            Unique identifier for this client.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.MbtServices.Service.IMbtServiceClient.RemoteEndPoint">
+            <summary>
+             Gets endpoint of remote application.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.MbtServices.Service.IMbtServiceClient.CommunicationState">
+            <summary>
+            Gets the communication state of the Client.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Service.IMbtServiceClient.Disconnect">
+            <summary>
+            Closes client connection.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Service.IMbtServiceClient.GetClientProxy``1">
+            <summary>
+            Gets the client proxy interface that provides calling client methods remotely.
+            </summary>
+            <typeparam name="T">Type of client interface</typeparam>
+            <returns>Client interface</returns>
+        </member>
+        <member name="T:Hik.Communication.MbtServices.Service.MbtService">
+            <summary>
+            Base class for all services that is serviced by IMbtServiceApplication.
+            A class must be derived from MbtService to serve as a MBT service.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.MbtServices.Service.MbtService._currentClient">
+            <summary>
+            The current client for a thread that called service method.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.MbtServices.Service.MbtService.CurrentClient">
+            <summary>
+            Gets the current client which called this service method. 
+            </summary>
+            <remarks>
+            This property is thread-safe, if returns correct client when 
+            called in a service method if the method is called by MBT system,
+            else throws exception.
+            </remarks>
+        </member>
+        <member name="T:Hik.Communication.MbtServices.Service.MbtServiceApplication">
+            <summary>
+            Implements IMbtServiceApplication and provides all functionallity.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.MbtServices.Service.MbtServiceApplication.ClientConnected">
+            <summary>
+            This event is raised when a new client connected to the service.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.MbtServices.Service.MbtServiceApplication.ClientDisconnected">
+            <summary>
+            This event is raised when a client disconnected from the service.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.MbtServices.Service.MbtServiceApplication._mbtServer">
+            <summary>
+            Underlying IMbtServer object to accept and manage client connections.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.MbtServices.Service.MbtServiceApplication._serviceObjects">
+            <summary>
+            User service objects that is used to invoke incoming method invocation requests.
+            Key: Service interface type's name.
+            Value: Service object.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.MbtServices.Service.MbtServiceApplication._serviceClients">
+            <summary>
+            All connected clients to service.
+            Key: Client's unique Id.
+            Value: Reference to the client.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Service.MbtServiceApplication.#ctor(Hik.Communication.Mbt.Server.IMbtServer)">
+            <summary>
+            Creates a new MbtServiceApplication object.
+            </summary>
+            <param name="mbtServer">Underlying IMbtServer object to accept and manage client connections</param>
+            <exception cref="T:System.ArgumentNullException">Throws ArgumentNullException if mbtServer argument is null</exception>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Service.MbtServiceApplication.Start">
+            <summary>
+            Starts service application.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Service.MbtServiceApplication.Stop">
+            <summary>
+            Stops service application.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Service.MbtServiceApplication.AddService``2(``1)">
+            <summary>
+            Adds a service object to this service application.
+            Only single service object can be added for a service interface type.
+            </summary>
+            <typeparam name="TServiceInterface">Service interface type</typeparam>
+            <typeparam name="TServiceClass">Service class type. Must be delivered from MbtService and must implement TServiceInterface.</typeparam>
+            <param name="service">An instance of TServiceClass.</param>
+            <exception cref="T:System.ArgumentNullException">Throws ArgumentNullException if service argument is null</exception>
+            <exception cref="T:System.Exception">Throws Exception if service is already added before</exception>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Service.MbtServiceApplication.RemoveService``1">
+            <summary>
+            Removes a previously added service object from this service application.
+            It removes object according to interface type.
+            </summary>
+            <typeparam name="TServiceInterface">Service interface type</typeparam>
+            <returns>True: removed. False: no service object with this interface</returns>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Service.MbtServiceApplication.MbtServer_ClientConnected(System.Object,Hik.Communication.Mbt.Server.ServerClientEventArgs)">
+            <summary>
+            Handles ClientConnected event of _mbtServer object.
+            </summary>
+            <param name="sender">Source of event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Service.MbtServiceApplication.MbtServer_ClientDisconnected(System.Object,Hik.Communication.Mbt.Server.ServerClientEventArgs)">
+            <summary>
+            Handles ClientDisconnected event of _mbtServer object.
+            </summary>
+            <param name="sender">Source of event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Service.MbtServiceApplication.Client_MessageReceived(System.Object,Hik.Communication.Mbt.Communication.Messages.MessageEventArgs)">
+            <summary>
+            Handles MessageReceived events of all clients, evaluates each message,
+            finds appropriate service object and invokes appropriate method.
+            </summary>
+            <param name="sender">Source of event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Service.MbtServiceApplication.SendInvokeResponse(Hik.Communication.Mbt.Communication.Messengers.IMessenger,Hik.Communication.Mbt.Communication.Messages.IMbtMessage,System.Object,Hik.Communication.MbtServices.Communication.Messages.MbtRemoteException)">
+            <summary>
+            Sends response to the remote application that invoked a service method.
+            </summary>
+            <param name="client">Client that sent invoke message</param>
+            <param name="requestMessage">Request message</param>
+            <param name="returnValue">Return value to send</param>
+            <param name="exception">Exception to send</param>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Service.MbtServiceApplication.OnClientConnected(Hik.Communication.MbtServices.Service.IMbtServiceClient)">
+            <summary>
+            Raises ClientConnected event.
+            </summary>
+            <param name="client"></param>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Service.MbtServiceApplication.OnClientDisconnected(Hik.Communication.MbtServices.Service.IMbtServiceClient)">
+            <summary>
+            Raises ClientDisconnected event.
+            </summary>
+            <param name="client"></param>
+        </member>
+        <member name="T:Hik.Communication.MbtServices.Service.MbtServiceApplication.ServiceObject">
+            <summary>
+            Represents a user service object.
+            It is used to invoke methods on a MbtService object.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.MbtServices.Service.MbtServiceApplication.ServiceObject.Service">
+            <summary>
+            The service object that is used to invoke methods on.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.MbtServices.Service.MbtServiceApplication.ServiceObject.ServiceAttribute">
+            <summary>
+            MbtService attribute of Service object's class.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.MbtServices.Service.MbtServiceApplication.ServiceObject._methods">
+            <summary>
+            This collection stores a list of all methods of service object.
+            Key: Method name
+            Value: Informations about method. 
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Service.MbtServiceApplication.ServiceObject.#ctor(System.Type,Hik.Communication.MbtServices.Service.MbtService)">
+            <summary>
+            Creates a new ServiceObject.
+            </summary>
+            <param name="serviceInterfaceType">Type of service interface</param>
+            <param name="service">The service object that is used to invoke methods on</param>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Service.MbtServiceApplication.ServiceObject.InvokeMethod(System.String,System.Object[])">
+            <summary>
+            Invokes a method of Service object.
+            </summary>
+            <param name="methodName">Name of the method to invoke</param>
+            <param name="parameters">Parameters of method</param>
+            <returns>Return value of method</returns>
+        </member>
+        <member name="T:Hik.Communication.MbtServices.Service.MbtServiceAttribute">
+            <summary>
+            Any MBT Service interface class must has this attribute.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.MbtServices.Service.MbtServiceAttribute.Version">
+            <summary>
+            Service Version. This property can be used to indicate the code version.
+            This value is sent to client application on an exception, so, client application can know that service version is changed.
+            Default value: NO_VERSION.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Service.MbtServiceAttribute.#ctor">
+            <summary>
+            Creates a new MbtServiceAttribute object.
+            </summary>
+        </member>
+        <member name="T:Hik.Communication.MbtServices.Service.MbtServiceBuilder">
+            <summary>
+            This class is used to build MbtService applications.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Service.MbtServiceBuilder.CreateService(Hik.Communication.Mbt.Communication.EndPoints.MbtEndPoint)">
+            <summary>
+            Creates a new MBT Service application using an EndPoint.
+            </summary>
+            <param name="endPoint">EndPoint that represents address of the service</param>
+            <returns>Created MBT service application</returns>
+        </member>
+        <member name="T:Hik.Communication.MbtServices.Service.MbtServiceClient">
+            <summary>
+            Implements IMbtServiceClient.
+            It is used to manage and monitor a service client.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.MbtServices.Service.MbtServiceClient.Disconnected">
+            <summary>
+            This event is raised when this client is disconnected from server.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.MbtServices.Service.MbtServiceClient.ClientId">
+            <summary>
+            Unique identifier for this client.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.MbtServices.Service.MbtServiceClient.RemoteEndPoint">
+            <summary>
+             Gets endpoint of remote application.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.MbtServices.Service.MbtServiceClient.CommunicationState">
+            <summary>
+            Gets the communication state of the Client.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.MbtServices.Service.MbtServiceClient._serverClient">
+            <summary>
+            Reference to underlying IMbtServerClient object.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.MbtServices.Service.MbtServiceClient._requestReplyMessenger">
+            <summary>
+            This object is used to send messages to client.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.MbtServices.Service.MbtServiceClient._realProxy">
+            <summary>
+            Last created proxy object to invoke remote medhods.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Service.MbtServiceClient.#ctor(Hik.Communication.Mbt.Server.IMbtServerClient,Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger{Hik.Communication.Mbt.Server.IMbtServerClient})">
+            <summary>
+            Creates a new MbtServiceClient object.
+            </summary>
+            <param name="serverClient">Reference to underlying IMbtServerClient object</param>
+            <param name="requestReplyMessenger">RequestReplyMessenger to send messages</param>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Service.MbtServiceClient.Disconnect">
+            <summary>
+            Closes client connection.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Service.MbtServiceClient.GetClientProxy``1">
+            <summary>
+            Gets the client proxy interface that provides calling client methods remotely.
+            </summary>
+            <typeparam name="T">Type of client interface</typeparam>
+            <returns>Client interface</returns>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Service.MbtServiceClient.Client_Disconnected(System.Object,System.EventArgs)">
+            <summary>
+            Handles disconnect event of _serverClient object.
+            </summary>
+            <param name="sender">Source of event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Service.MbtServiceClient.OnDisconnected">
+            <summary>
+            Raises Disconnected event.
+            </summary>
+        </member>
+        <member name="T:Hik.Communication.MbtServices.Service.MbtServiceClientFactory">
+            <summary>
+            This class is used to create service client objects that is used in server-side.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Service.MbtServiceClientFactory.CreateServiceClient(Hik.Communication.Mbt.Server.IMbtServerClient,Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger{Hik.Communication.Mbt.Server.IMbtServerClient})">
+            <summary>
+            Creates a new service client object that is used in server-side.
+            </summary>
+            <param name="serverClient">Underlying server client object</param>
+            <param name="requestReplyMessenger">RequestReplyMessenger object to send/receive messages over serverClient</param>
+            <returns></returns>
+        </member>
+        <member name="T:Hik.Communication.MbtServices.Service.ServiceClientEventArgs">
+            <summary>
+            Stores service client informations to be used by an event.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.MbtServices.Service.ServiceClientEventArgs.Client">
+            <summary>
+            Client that is associated with this event.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.MbtServices.Service.ServiceClientEventArgs.#ctor(Hik.Communication.MbtServices.Service.IMbtServiceClient)">
+            <summary>
+            Creates a new ServiceClientEventArgs object.
+            </summary>
+            <param name="client">Client that is associated with this event</param>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1">
+            <summary>
+            This class adds SendMessageAndWaitForResponse(...) and SendAndReceiveMessage methods
+            to a IMessenger for synchronous request/response style messaging.
+            It also adds queued processing of incoming messages.
+            </summary>
+            <typeparam name="T">Type of IMessenger object to use as underlying communication</typeparam>
+        </member>
+        <member name="E:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1.MessageReceived">
+            <summary>
+            This event is raised when a new message is received from underlying messenger.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1.MessageSent">
+            <summary>
+            This event is raised when a new message is sent without any error.
+            It does not guaranties that message is properly handled and processed by remote application.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1.WireProtocol">
+            <summary>
+            Gets/sets wire protocol that is used while reading and writing messages.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1.LastReceivedMessageTime">
+            <summary>
+            Gets the time of the last succesfully received message.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1.LastSentMessageTime">
+            <summary>
+            Gets the time of the last succesfully received message.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1.Messenger">
+            <summary>
+            Gets the underlying IMessenger object.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1.Timeout">
+            <summary>
+            Timeout value as milliseconds to wait for a receiving message on 
+            SendMessageAndWaitForResponse and SendAndReceiveMessage methods.
+            Default value: 60000 (1 minute).
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1.DefaultTimeout">
+            <summary>
+            Default Timeout value.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1._waitingMessages">
+            <summary>
+            This messages are waiting for a response those are used when 
+            SendMessageAndWaitForResponse is called.
+            Key: MessageID of waiting request message.
+            Value: A WaitingMessage instance.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1._incomingMessageProcessor">
+            <summary>
+            This object is used to process incoming messages sequentially.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1._syncObj">
+            <summary>
+            This object is used for thread synchronization.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1.#ctor(`0)">
+            <summary>
+            Creates a new RequestReplyMessenger.
+            </summary>
+            <param name="messenger">IMessenger object to use as underlying communication</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1.Start">
+            <summary>
+            Starts the messenger.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1.Stop">
+            <summary>
+            Stops the messenger.
+            Cancels all waiting threads in SendMessageAndWaitForResponse method and stops message queue.
+            SendMessageAndWaitForResponse method throws exception if there is a thread that is waiting for response message.
+            Also stops incoming message processing and deletes all messages in incoming message queue.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1.Dispose">
+            <summary>
+            Calls Stop method of this object.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1.SendMessage(Hik.Communication.Mbt.Communication.Messages.IMbtMessage)">
+            <summary>
+            Sends a message.
+            </summary>
+            <param name="message">Message to be sent</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1.SendMessageAndWaitForResponse(Hik.Communication.Mbt.Communication.Messages.IMbtMessage)">
+            <summary>
+            Sends a message and waits a response for that message.
+            </summary>
+            <remarks>
+            Response message is matched with RepliedMessageId property, so if
+            any other message (that is not reply for sent message) is received
+            from remote application, it is not considered as a reply and is not
+            returned as return value of this method.
+            
+            MessageReceived event is not raised for response messages.
+            </remarks>
+            <param name="message">message to send</param>
+            <returns>Response message</returns>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1.SendMessageAndWaitForResponse(Hik.Communication.Mbt.Communication.Messages.IMbtMessage,System.Int32)">
+            <summary>
+            Sends a message and waits a response for that message.
+            </summary>
+            <remarks>
+            Response message is matched with RepliedMessageId property, so if
+            any other message (that is not reply for sent message) is received
+            from remote application, it is not considered as a reply and is not
+            returned as return value of this method.
+            
+            MessageReceived event is not raised for response messages.
+            </remarks>
+            <param name="message">message to send</param>
+            <param name="timeoutMilliseconds">Timeout duration as milliseconds.</param>
+            <returns>Response message</returns>
+            <exception cref="T:System.TimeoutException">Throws TimeoutException if can not receive reply message in timeout value</exception>
+            <exception cref="T:Hik.Communication.Mbt.Communication.CommunicationException">Throws CommunicationException if communication fails before reply message.</exception>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1.Messenger_MessageReceived(System.Object,Hik.Communication.Mbt.Communication.Messages.MessageEventArgs)">
+            <summary>
+            Handles MessageReceived event of Messenger object.
+            </summary>
+            <param name="sender">Source of event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1.Messenger_MessageSent(System.Object,Hik.Communication.Mbt.Communication.Messages.MessageEventArgs)">
+            <summary>
+            Handles MessageSent event of Messenger object.
+            </summary>
+            <param name="sender">Source of event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1.OnMessageReceived(Hik.Communication.Mbt.Communication.Messages.IMbtMessage)">
+            <summary>
+            Raises MessageReceived event.
+            </summary>
+            <param name="message">Received message</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1.OnMessageSent(Hik.Communication.Mbt.Communication.Messages.IMbtMessage)">
+            <summary>
+            Raises MessageSent event.
+            </summary>
+            <param name="message">Received message</param>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1.WaitingMessage">
+            <summary>
+            This class is used to store messaging context for a request message
+            until response is received.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1.WaitingMessage.ResponseMessage">
+            <summary>
+            Response message for request message 
+            (null if response is not received yet).
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1.WaitingMessage.WaitEvent">
+            <summary>
+            ManualResetEvent to block thread until response is received.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1.WaitingMessage.State">
+            <summary>
+            State of the request message.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1.WaitingMessage.#ctor">
+            <summary>
+            Creates a new WaitingMessage object.
+            </summary>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1.WaitingMessageStates">
+            <summary>
+            This enum is used to store the state of a waiting message.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1.WaitingMessageStates.WaitingForResponse">
+            <summary>
+            Still waiting for response.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1.WaitingMessageStates.Cancelled">
+            <summary>
+            Message sending is cancelled.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Communication.Messengers.RequestReplyMessenger`1.WaitingMessageStates.ResponseReceived">
+            <summary>
+            Response is properly received.
+            </summary>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Communication.Messengers.IMessenger">
+            <summary>
+            Represents an object that can send and receive messages.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.Mbt.Communication.Messengers.IMessenger.MessageReceived">
+            <summary>
+            This event is raised when a new message is received.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.Mbt.Communication.Messengers.IMessenger.MessageSent">
+            <summary>
+            This event is raised when a new message is sent without any error.
+            It does not guaranties that message is properly handled and processed by remote application.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.Messengers.IMessenger.WireProtocol">
+            <summary>
+            Gets/sets wire protocol that is used while reading and writing messages.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.Messengers.IMessenger.LastReceivedMessageTime">
+            <summary>
+            Gets the time of the last succesfully received message.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.Messengers.IMessenger.LastSentMessageTime">
+            <summary>
+            Gets the time of the last succesfully sent message.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messengers.IMessenger.SendMessage(Hik.Communication.Mbt.Communication.Messages.IMbtMessage)">
+            <summary>
+            Sends a message to the remote application.
+            </summary>
+            <param name="message">Message to be sent</param>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Communication.Messengers.SynchronizedMessenger`1">
+            <summary>
+            This class is a wrapper for IMessenger and is used
+            to synchronize message receiving operation.
+            It extends RequestReplyMessenger.
+            It is suitable to use in applications those want to receive
+            messages by synchronized method calls instead of asynchronous 
+            MessageReceived event.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.Messengers.SynchronizedMessenger`1.IncomingMessageQueueCapacity">
+            <summary>
+             Gets/sets capacity of the incoming message queue.
+             No message is received from remote application if
+             number of messages in internal queue exceeds this value.
+             Default value: int.MaxValue (2147483647).
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Communication.Messengers.SynchronizedMessenger`1._receivingMessageQueue">
+            <summary>
+            A queue that is used to store receiving messages until Receive(...)
+            method is called to get them.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Communication.Messengers.SynchronizedMessenger`1._receiveWaiter">
+            <summary>
+            This object is used to synchronize/wait threads.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Communication.Messengers.SynchronizedMessenger`1._running">
+            <summary>
+            This boolean value indicates the running state of this class.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messengers.SynchronizedMessenger`1.#ctor(`0)">
+            <summary>
+             Creates a new SynchronizedMessenger object.
+            </summary>
+            <param name="messenger">A IMessenger object to be used to send/receive messages</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messengers.SynchronizedMessenger`1.#ctor(`0,System.Int32)">
+            <summary>
+             Creates a new SynchronizedMessenger object.
+            </summary>
+            <param name="messenger">A IMessenger object to be used to send/receive messages</param>
+            <param name="incomingMessageQueueCapacity">capacity of the incoming message queue</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messengers.SynchronizedMessenger`1.Start">
+            <summary>
+            Starts the messenger.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messengers.SynchronizedMessenger`1.Stop">
+            <summary>
+            Stops the messenger.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messengers.SynchronizedMessenger`1.ReceiveMessage">
+            <summary>
+            This method is used to receive a message from remote application.
+            It waits until a message is received.
+            </summary>
+            <returns>Received message</returns>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messengers.SynchronizedMessenger`1.ReceiveMessage(System.Int32)">
+            <summary>
+            This method is used to receive a message from remote application.
+            It waits until a message is received or timeout occurs.
+            </summary>
+            <param name="timeout">
+            Timeout value to wait if no message is received.
+            Use -1 to wait indefinitely.
+            </param>
+            <returns>Received message</returns>
+            <exception cref="T:System.TimeoutException">Throws TimeoutException if timeout occurs</exception>
+            <exception cref="T:System.Exception">Throws Exception if SynchronizedMessenger stops before a message is received</exception>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messengers.SynchronizedMessenger`1.ReceiveMessage``1">
+            <summary>
+            This method is used to receive a specific type of message from remote application.
+            It waits until a message is received.
+            </summary>
+            <returns>Received message</returns>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messengers.SynchronizedMessenger`1.ReceiveMessage``1(System.Int32)">
+            <summary>
+            This method is used to receive a specific type of message from remote application.
+            It waits until a message is received or timeout occurs.
+            </summary>
+            <param name="timeout">
+            Timeout value to wait if no message is received.
+            Use -1 to wait indefinitely.
+            </param>
+            <returns>Received message</returns>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messengers.SynchronizedMessenger`1.OnMessageReceived(Hik.Communication.Mbt.Communication.Messages.IMbtMessage)">
+            <summary>
+            Overrides
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Communication.Channels.CommunicationChannelBase">
+            <summary>
+            This class provides base functionality for all communication channel classes.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.Mbt.Communication.Channels.CommunicationChannelBase.MessageReceived">
+            <summary>
+            This event is raised when a new message is received.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.Mbt.Communication.Channels.CommunicationChannelBase.MessageSent">
+            <summary>
+            This event is raised when a new message is sent without any error.
+            It does not guaranties that message is properly handled and processed by remote application.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.Mbt.Communication.Channels.CommunicationChannelBase.Disconnected">
+            <summary>
+            This event is raised when communication channel closed.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.Channels.CommunicationChannelBase.RemoteEndPoint">
+            <summary>
+             Gets endpoint of remote application.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.Channels.CommunicationChannelBase.CommunicationState">
+            <summary>
+            Gets the current communication state.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.Channels.CommunicationChannelBase.LastReceivedMessageTime">
+            <summary>
+            Gets the time of the last succesfully received message.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.Channels.CommunicationChannelBase.LastSentMessageTime">
+            <summary>
+            Gets the time of the last succesfully sent message.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.Channels.CommunicationChannelBase.WireProtocol">
+            <summary>
+            Gets/sets wire protocol that the channel uses.
+            This property must set before first communication.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Channels.CommunicationChannelBase.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Channels.CommunicationChannelBase.Disconnect">
+            <summary>
+            Disconnects from remote application and closes this channel.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Channels.CommunicationChannelBase.Start">
+            <summary>
+            Starts the communication with remote application.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Channels.CommunicationChannelBase.SendMessage(Hik.Communication.Mbt.Communication.Messages.IMbtMessage)">
+            <summary>
+            Sends a message to the remote application.
+            </summary>
+            <param name="message">Message to be sent</param>
+            <exception cref="T:System.ArgumentNullException">Throws ArgumentNullException if message is null</exception>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Channels.CommunicationChannelBase.StartInternal">
+            <summary>
+            Starts the communication with remote application really.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Channels.CommunicationChannelBase.SendMessageInternal(Hik.Communication.Mbt.Communication.Messages.IMbtMessage)">
+            <summary>
+            Sends a message to the remote application.
+            This method is overrided by derived classes to really send to message.
+            </summary>
+            <param name="message">Message to be sent</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Channels.CommunicationChannelBase.OnDisconnected">
+            <summary>
+            Raises Disconnected event.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Channels.CommunicationChannelBase.OnMessageReceived(Hik.Communication.Mbt.Communication.Messages.IMbtMessage)">
+            <summary>
+            Raises MessageReceived event.
+            </summary>
+            <param name="message">Received message</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Channels.CommunicationChannelBase.OnMessageSent(Hik.Communication.Mbt.Communication.Messages.IMbtMessage)">
+            <summary>
+            Raises MessageSent event.
+            </summary>
+            <param name="message">Received message</param>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Communication.Channels.CommunicationChannelEventArgs">
+            <summary>
+            Stores communication channel information to be used by an event.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.Channels.CommunicationChannelEventArgs.Channel">
+            <summary>
+            Communication channel that is associated with this event.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Channels.CommunicationChannelEventArgs.#ctor(Hik.Communication.Mbt.Communication.Channels.ICommunicationChannel)">
+            <summary>
+            Creates a new CommunicationChannelEventArgs object.
+            </summary>
+            <param name="channel">Communication channel that is associated with this event</param>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Communication.Channels.ConnectionListenerBase">
+            <summary>
+            This class provides base functionality for communication listener classes.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.Mbt.Communication.Channels.ConnectionListenerBase.CommunicationChannelConnected">
+            <summary>
+            This event is raised when a new communication channel is connected.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Channels.ConnectionListenerBase.Start">
+            <summary>
+            Starts listening incoming connections.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Channels.ConnectionListenerBase.Stop">
+            <summary>
+            Stops listening incoming connections.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Channels.ConnectionListenerBase.OnCommunicationChannelConnected(Hik.Communication.Mbt.Communication.Channels.ICommunicationChannel)">
+            <summary>
+            Raises CommunicationChannelConnected event.
+            </summary>
+            <param name="client"></param>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Communication.Channels.ICommunicationChannel">
+            <summary>
+            Represents a communication channel.
+            A communication channel is used to communicate (send/receive messages) with a remote application.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.Mbt.Communication.Channels.ICommunicationChannel.Disconnected">
+            <summary>
+            This event is raised when client disconnected from server.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.Channels.ICommunicationChannel.RemoteEndPoint">
+            <summary>
+             Gets endpoint of remote application.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.Channels.ICommunicationChannel.CommunicationState">
+            <summary>
+            Gets the current communication state.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Channels.ICommunicationChannel.Start">
+            <summary>
+            Starts the communication with remote application.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Channels.ICommunicationChannel.Disconnect">
+            <summary>
+            Closes messenger.
+            </summary>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Communication.Channels.IConnectionListener">
+            <summary>
+            Represents a communication listener.
+            A connection listener is used to accept incoming client connection requests.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.Mbt.Communication.Channels.IConnectionListener.CommunicationChannelConnected">
+            <summary>
+            This event is raised when a new communication channel connected.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Channels.IConnectionListener.Start">
+            <summary>
+            Starts listening incoming connections.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Channels.IConnectionListener.Stop">
+            <summary>
+            Stops listening incoming connections.
+            </summary>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Communication.Channels.Tcp.TcpCommunicationChannel">
+            <summary>
+            This class is used to communicate with a remote application over TCP/IP protocol.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.Channels.Tcp.TcpCommunicationChannel.RemoteEndPoint">
+            <summary>
+             Gets the endpoint of remote application.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Communication.Channels.Tcp.TcpCommunicationChannel.ReceiveBufferSize">
+            <summary>
+            Size of the buffer that is used to receive bytes from TCP socket.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Communication.Channels.Tcp.TcpCommunicationChannel._buffer">
+            <summary>
+            This buffer is used to receive bytes 
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Communication.Channels.Tcp.TcpCommunicationChannel._clientSocket">
+            <summary>
+            Socket object to send/reveice messages.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Communication.Channels.Tcp.TcpCommunicationChannel._running">
+            <summary>
+            A flag to control thread's running
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Communication.Channels.Tcp.TcpCommunicationChannel._syncLock">
+            <summary>
+            This object is just used for thread synchronizing (locking).
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Channels.Tcp.TcpCommunicationChannel.#ctor(System.Net.Sockets.Socket)">
+            <summary>
+            Creates a new TcpCommunicationChannel object.
+            </summary>
+            <param name="clientSocket">A connected Socket object that is
+            used to communicate over network</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Channels.Tcp.TcpCommunicationChannel.Disconnect">
+            <summary>
+            Disconnects from remote application and closes channel.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Channels.Tcp.TcpCommunicationChannel.StartInternal">
+            <summary>
+            Starts the thread to receive messages from socket.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Channels.Tcp.TcpCommunicationChannel.SendMessageInternal(Hik.Communication.Mbt.Communication.Messages.IMbtMessage)">
+            <summary>
+            Sends a message to the remote application.
+            </summary>
+            <param name="message">Message to be sent</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Channels.Tcp.TcpCommunicationChannel.ReceiveCallback(System.IAsyncResult)">
+            <summary>
+            This method is used as callback method in _clientSocket's BeginReceive method.
+            It reveives bytes from socker.
+            </summary>
+            <param name="ar">Asyncronous call result</param>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Communication.Channels.Tcp.TcpConnectionListener">
+            <summary>
+            This class is used to listen and accept incoming TCP
+            connection requests on a TCP port.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Communication.Channels.Tcp.TcpConnectionListener._endPoint">
+            <summary>
+            The endpoint address of the server to listen incoming connections.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Communication.Channels.Tcp.TcpConnectionListener._listenerSocket">
+            <summary>
+            Server socket to listen incoming connection requests.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Communication.Channels.Tcp.TcpConnectionListener._thread">
+            <summary>
+            The thread to listen socket
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Communication.Channels.Tcp.TcpConnectionListener._running">
+            <summary>
+            A flag to control thread's running
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Channels.Tcp.TcpConnectionListener.#ctor(Hik.Communication.Mbt.Communication.EndPoints.Tcp.MbtTcpEndPoint)">
+            <summary>
+            Creates a new TcpConnectionListener for given endpoint.
+            </summary>
+            <param name="endPoint">The endpoint address of the server to listen incoming connections</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Channels.Tcp.TcpConnectionListener.Start">
+            <summary>
+            Starts listening incoming connections.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Channels.Tcp.TcpConnectionListener.Stop">
+            <summary>
+            Stops listening incoming connections.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Channels.Tcp.TcpConnectionListener.StartSocket">
+            <summary>
+            Starts listening socket.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Channels.Tcp.TcpConnectionListener.StopSocket">
+            <summary>
+            Stops listening socket.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Channels.Tcp.TcpConnectionListener.DoListenAsThread">
+            <summary>
+            Entrance point of the thread.
+            This method is used by the thread to listen incoming requests.
+            </summary>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Communication.CommunicationStateException">
+            <summary>
+            This application is thrown if communication is not expected state.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.CommunicationStateException.#ctor">
+            <summary>
+            Contstructor.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.CommunicationStateException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Contstructor for serializing.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.CommunicationStateException.#ctor(System.String)">
+            <summary>
+            Contstructor.
+            </summary>
+            <param name="message">Exception message</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.CommunicationStateException.#ctor(System.String,System.Exception)">
+            <summary>
+            Contstructor.
+            </summary>
+            <param name="message">Exception message</param>
+            <param name="innerException">Inner exception</param>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Communication.CommunicationStates">
+            <summary>
+            Communication states.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Communication.CommunicationStates.Connected">
+            <summary>
+            Connected.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Communication.CommunicationStates.Disconnected">
+            <summary>
+            Disconnected.
+            </summary>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Communication.CommunicationException">
+            <summary>
+            This application is thrown in a communication error.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.CommunicationException.#ctor">
+            <summary>
+            Contstructor.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.CommunicationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Contstructor for serializing.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.CommunicationException.#ctor(System.String)">
+            <summary>
+            Contstructor.
+            </summary>
+            <param name="message">Exception message</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.CommunicationException.#ctor(System.String,System.Exception)">
+            <summary>
+            Contstructor.
+            </summary>
+            <param name="message">Exception message</param>
+            <param name="innerException">Inner exception</param>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Communication.EndPoints.MbtEndPoint">
+            <summary>
+             Represents a server side end point in MBT.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.EndPoints.MbtEndPoint.CreateEndPoint(System.String)">
+            <summary>
+            Create a Mbt End Point from a string.
+            Address must be formatted as: protocol://address
+            For example: tcp://89.43.104.179:10048 for a TCP endpoint with
+            IP 89.43.104.179 and port 10048.
+            </summary>
+            <param name="endPointAddress">Address to create endpoint</param>
+            <returns>Created end point</returns>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.EndPoints.MbtEndPoint.CreateServer">
+            <summary>
+            Creates a Mbt Server that uses this end point to listen incoming connections.
+            </summary>
+            <returns>Mbt Server</returns>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.EndPoints.MbtEndPoint.CreateClient">
+            <summary>
+            Creates a Mbt Server that uses this end point to connect to server.
+            </summary>
+            <returns>Mbt Client</returns>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Communication.EndPoints.Tcp.MbtTcpEndPoint">
+            <summary>
+            Represens a TCP end point in MBT.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.EndPoints.Tcp.MbtTcpEndPoint.IpAddress">
+            <summary>
+             IP address of the server.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.EndPoints.Tcp.MbtTcpEndPoint.TcpPort">
+            <summary>
+             Listening TCP Port for incoming connection requests on server.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.EndPoints.Tcp.MbtTcpEndPoint.#ctor(System.Int32)">
+            <summary>
+            Creates a new MbtTcpEndPoint object with specified port number.
+            </summary>
+            <param name="tcpPort">Listening TCP Port for incoming connection requests on server</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.EndPoints.Tcp.MbtTcpEndPoint.#ctor(System.String,System.Int32)">
+            <summary>
+            Creates a new MbtTcpEndPoint object with specified IP address and port number.
+            </summary>
+            <param name="ipAddress">IP address of the server</param>
+            <param name="port">Listening TCP Port for incoming connection requests on server</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.EndPoints.Tcp.MbtTcpEndPoint.#ctor(System.String)">
+            <summary>
+            Creates a new MbtTcpEndPoint from a string address.
+            Address format must be like IPAddress:Port (For example: 127.0.0.1:10085).
+            </summary>
+            <param name="address">TCP end point Address</param>
+            <returns>Created MbtTcpEndpoint object</returns>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.EndPoints.Tcp.MbtTcpEndPoint.CreateServer">
+            <summary>
+            Creates a Mbt Server that uses this end point to listen incoming connections.
+            </summary>
+            <returns>Mbt Server</returns>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.EndPoints.Tcp.MbtTcpEndPoint.CreateClient">
+            <summary>
+            Creates a Mbt Client that uses this end point to connect to server.
+            </summary>
+            <returns>Mbt Client</returns>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.EndPoints.Tcp.MbtTcpEndPoint.ToString">
+            <summary>
+            Generates a string representation of this end point object.
+            </summary>
+            <returns>String representation of this end point object</returns>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Communication.Messages.IMbtMessage">
+            <summary>
+            Represents a message that is sent and received by server and client.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.Messages.IMbtMessage.MessageId">
+            <summary>
+            Unique identified for this message. 
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.Messages.IMbtMessage.RepliedMessageId">
+            <summary>
+            Unique identified for this message. 
+            </summary>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Communication.Messages.MessageEventArgs">
+            <summary>
+            Stores message to be used by an event.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.Messages.MessageEventArgs.Message">
+            <summary>
+            Message object that is associated with this event.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messages.MessageEventArgs.#ctor(Hik.Communication.Mbt.Communication.Messages.IMbtMessage)">
+            <summary>
+            Creates a new MessageEventArgs object.
+            </summary>
+            <param name="message">Message object that is associated with this event</param>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Communication.Messages.MbtPingMessage">
+            <summary>
+            This message is used to send/receive ping messages.
+            Ping messages is used to keep connection alive between server and client.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messages.MbtPingMessage.#ctor">
+            <summary>
+             Creates a new PingMessage object.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messages.MbtPingMessage.#ctor(System.String)">
+            <summary>
+            Creates a new reply PingMessage object.
+            </summary>
+            <param name="repliedMessageId">
+            Replied message id if this is a reply for
+            a message.
+            </param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messages.MbtPingMessage.ToString">
+            <summary>
+            Creates a string to represents this object.
+            </summary>
+            <returns>A string to represents this object</returns>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Communication.Messages.MbtMessage">
+            <summary>
+            Represents a message that is sent and received by server and client.
+            This is the base class for all messages.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.Messages.MbtMessage.MessageId">
+            <summary>
+            Unique identified for this message.
+            Default value: New GUID.
+            Do not change if you do not want to do low level changes
+            such as custom wire protocols.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.Messages.MbtMessage.RepliedMessageId">
+            <summary>
+            This property is used to indicate that this is
+            a Reply message to a message.
+            It may be null if this is not a reply message.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messages.MbtMessage.#ctor">
+            <summary>
+            Creates a new MbtMessage.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messages.MbtMessage.#ctor(System.String)">
+            <summary>
+            Creates a new reply MbtMessage.
+            </summary>
+            <param name="repliedMessageId">
+            Replied message id if this is a reply for
+            a message.
+            </param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messages.MbtMessage.ToString">
+            <summary>
+            Creates a string to represents this object.
+            </summary>
+            <returns>A string to represents this object</returns>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Communication.Messages.MbtRawDataMessage">
+            <summary>
+            This message is used to send/receive a raw byte array as message data.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.Messages.MbtRawDataMessage.MessageData">
+            <summary>
+            Message data that is being transmitted.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messages.MbtRawDataMessage.#ctor">
+            <summary>
+            Default empty constructor.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messages.MbtRawDataMessage.#ctor(System.Byte[])">
+            <summary>
+            Creates a new MbtRawDataMessage object with MessageData property.
+            </summary>
+            <param name="messageData">Message data that is being transmitted</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messages.MbtRawDataMessage.#ctor(System.Byte[],System.String)">
+            <summary>
+            Creates a new reply MbtRawDataMessage object with MessageData property.
+            </summary>
+            <param name="messageData">Message data that is being transmitted</param>
+            <param name="repliedMessageId">
+            Replied message id if this is a reply for
+            a message.
+            </param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messages.MbtRawDataMessage.ToString">
+            <summary>
+            Creates a string to represents this object.
+            </summary>
+            <returns>A string to represents this object</returns>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Communication.Messages.MbtTextMessage">
+            <summary>
+            This message is used to send/receive a text as message data.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Communication.Messages.MbtTextMessage.Text">
+            <summary>
+            Message text that is being transmitted.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messages.MbtTextMessage.#ctor">
+            <summary>
+            Creates a new MbtTextMessage object.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messages.MbtTextMessage.#ctor(System.String)">
+            <summary>
+            Creates a new MbtTextMessage object with Text property.
+            </summary>
+            <param name="text">Message text that is being transmitted</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messages.MbtTextMessage.#ctor(System.String,System.String)">
+            <summary>
+            Creates a new reply MbtTextMessage object with Text property.
+            </summary>
+            <param name="text">Message text that is being transmitted</param>
+            <param name="repliedMessageId">
+            Replied message id if this is a reply for
+            a message.
+            </param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Messages.MbtTextMessage.ToString">
+            <summary>
+            Creates a string to represents this object.
+            </summary>
+            <returns>A string to represents this object</returns>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Communication.Protocols.BinarySerialization.BinarySerializationProtocol">
+            <summary>
+            Default communication protocol between server and clients to send and receive a message.
+            It uses .NET binary serialization to write and read messages.
+            
+            A Message format:
+            [Message Length (4 bytes)][Serialized Message Content]
+            
+            If a message is serialized to byte array as N bytes, this protocol
+            adds 4 bytes size information to head of the message bytes, so total length is (4 + N) bytes.
+            
+            This class can be derived to change serializer (default: BinaryFormatter). To do this,
+            SerializeMessage and DeserializeMessage methods must be overrided.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Communication.Protocols.BinarySerialization.BinarySerializationProtocol.MaxMessageLength">
+            <summary>
+            Maximum length of a message.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Communication.Protocols.BinarySerialization.BinarySerializationProtocol._receiveMemoryStream">
+            <summary>
+            This MemoryStream object is used to collect receiving bytes to build messages.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Protocols.BinarySerialization.BinarySerializationProtocol.#ctor">
+            <summary>
+            Creates a new instance of BinarySerializationProtocol.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Protocols.BinarySerialization.BinarySerializationProtocol.GetBytes(Hik.Communication.Mbt.Communication.Messages.IMbtMessage)">
+            <summary>
+            Serializes a message to a byte array to send to remote application.
+            This method is synchronized. So, only one thread can call it concurrently.
+            </summary>
+            <param name="message">Message to be serialized</param>
+            <exception cref="T:Hik.Communication.Mbt.Communication.CommunicationException">Throws CommunicationException if message is bigger than maximum allowed message length.</exception>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Protocols.BinarySerialization.BinarySerializationProtocol.CreateMessages(System.Byte[])">
+            <summary>
+            Builds messages from a byte array that is received from remote application.
+            The Byte array may contain just a part of a message, the protocol must
+            cumulate bytes to build messages.
+            This method is synchronized. So, only one thread can call it concurrently.
+            </summary>
+            <param name="receivedBytes">Received bytes from remote application</param>
+            <returns>
+            List of messages.
+            Protocol can generate more than one message from a byte array.
+            Also, if received bytes are not sufficient to build a message, the protocol
+            may return an empty list (and save bytes to combine with next method call).
+            </returns>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Protocols.BinarySerialization.BinarySerializationProtocol.Reset">
+            <summary>
+            This method is called when connection with remote application is reset (connection is renewing or first connecting).
+            So, wire protocol must reset itself.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Protocols.BinarySerialization.BinarySerializationProtocol.SerializeMessage(Hik.Communication.Mbt.Communication.Messages.IMbtMessage)">
+            <summary>
+            This method is used to serialize a IMbtMessage to a byte array.
+            This method can be overrided by derived classes to change serialization strategy.
+            It is a couple with DeserializeMessage method and must be overrided together.
+            </summary>
+            <param name="message">Message to be serialized</param>
+            <returns>
+            Serialized message bytes.
+            Does not include length of the message.
+            </returns>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Protocols.BinarySerialization.BinarySerializationProtocol.DeserializeMessage(System.Byte[])">
+            <summary>
+            This method is used to deserialize a IMbtMessage from it's bytes.
+            This method can be overrided by derived classes to change deserialization strategy.
+            It is a couple with SerializeMessage method and must be overrided together.
+            </summary>
+            <param name="bytes">
+            Bytes of message to be deserialized (does not include message length. It consist
+            of a single whole message)
+            </param>
+            <returns>Deserialized message</returns>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Protocols.BinarySerialization.BinarySerializationProtocol.ReadSingleMessage(System.Collections.Generic.ICollection{Hik.Communication.Mbt.Communication.Messages.IMbtMessage})">
+            <summary>
+            This method tries to read a single message and add to the messages collection. 
+            </summary>
+            <param name="messages">Messages collection to collect messages</param>
+            <returns>
+            Returns a boolean value indicates that if there is a need to re-call this method.
+            </returns>
+            <exception cref="T:Hik.Communication.Mbt.Communication.CommunicationException">Throws CommunicationException if message is bigger than maximum allowed message length.</exception>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Protocols.BinarySerialization.BinarySerializationProtocol.WriteInt32(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Writes a int value to a byte array from a starting index.
+            </summary>
+            <param name="buffer">Byte array to write int value</param>
+            <param name="startIndex">Start index of byte array to write</param>
+            <param name="number">An integer value to write</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Protocols.BinarySerialization.BinarySerializationProtocol.ReadInt32(System.IO.Stream)">
+            <summary>
+            Deserializes and returns a serialized integer.
+            </summary>
+            <returns>Deserialized integer</returns>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Protocols.BinarySerialization.BinarySerializationProtocol.ReadByteArray(System.IO.Stream,System.Int32)">
+            <summary>
+            Reads a byte array with specified length.
+            </summary>
+            <param name="stream">Stream to read from</param>
+            <param name="length">Length of the byte array to read</param>
+            <returns>Read byte array</returns>
+            <exception cref="T:System.IO.EndOfStreamException">Throws EndOfStreamException if can not read from stream.</exception>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Communication.Protocols.BinarySerialization.BinarySerializationProtocol.DeserializationAppDomainBinder">
+            <summary>
+            This class is used in deserializing to allow deserializing objects that are defined
+            in assemlies that are load in runtime (like PlugIns).
+            </summary>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Communication.Protocols.BinarySerialization.BinarySerializationProtocolFactory">
+            <summary>
+            This class is used to create Binary Serialization Protocol objects.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Protocols.BinarySerialization.BinarySerializationProtocolFactory.CreateWireProtocol">
+            <summary>
+            Creates a new Wire Protocol object.
+            </summary>
+            <returns>Newly created wire protocol object</returns>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Communication.Protocols.IMbtWireProtocol">
+            <summary>
+            Represents a byte-level communication protocol between applications.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Protocols.IMbtWireProtocol.GetBytes(Hik.Communication.Mbt.Communication.Messages.IMbtMessage)">
+            <summary>
+            Serializes a message to a byte array to send to remote application.
+            This method is synchronized. So, only one thread can call it concurrently.
+            </summary>
+            <param name="message">Message to be serialized</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Protocols.IMbtWireProtocol.CreateMessages(System.Byte[])">
+            <summary>
+            Builds messages from a byte array that is received from remote application.
+            The Byte array may contain just a part of a message, the protocol must
+            cumulate bytes to build messages.
+            This method is synchronized. So, only one thread can call it concurrently.
+            </summary>
+            <param name="receivedBytes">Received bytes from remote application</param>
+            <returns>
+            List of messages.
+            Protocol can generate more than one message from a byte array.
+            Also, if received bytes are not sufficient to build a message, the protocol
+            may return an empty list (and save bytes to combine with next method call).
+            </returns>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Protocols.IMbtWireProtocol.Reset">
+            <summary>
+            This method is called when connection with remote application is reset (connection is renewing or first connecting).
+            So, wire protocol must reset itself.
+            </summary>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Communication.Protocols.IMbtWireProtocolFactory">
+            <summary>
+             Defines a Wire Protocol Factory class that is used to create Wire Protocol objects.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Protocols.IMbtWireProtocolFactory.CreateWireProtocol">
+            <summary>
+            Creates a new Wire Protocol object.
+            </summary>
+            <returns>Newly created wire protocol object</returns>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Communication.Protocols.WireProtocolManager">
+            <summary>
+            This class is used to get default protocols.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Protocols.WireProtocolManager.GetDefaultWireProtocolFactory">
+            <summary>
+            Creates a default wire protocol factory object to be used on communicating of applications.
+            </summary>
+            <returns>A new instance of default wire protocol</returns>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Communication.Protocols.WireProtocolManager.GetDefaultWireProtocol">
+            <summary>
+            Creates a default wire protocol object to be used on communicating of applications.
+            </summary>
+            <returns>A new instance of default wire protocol</returns>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Client.ClientReConnecter">
+            <summary>
+            This class is used to automatically re-connect to server if disconnected.
+            It attempts to reconnect to server periodically until connection established.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Client.ClientReConnecter.ReConnectCheckPeriod">
+            <summary>
+            Reconnect check period.
+            Default: 20 seconds.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Client.ClientReConnecter._client">
+            <summary>
+            Reference to client object.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Client.ClientReConnecter._reconnectTimer">
+            <summary>
+            Timer to  attempt ro reconnect periodically.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Client.ClientReConnecter._disposed">
+            <summary>
+            Indicates the dispose state of this object.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Client.ClientReConnecter.#ctor(Hik.Communication.Mbt.Client.IConnectableClient)">
+            <summary>
+            Creates a new ClientReConnecter object.
+            It is not needed to start ClientReConnecter since it automatically
+            starts when the client disconnected.
+            </summary>
+            <param name="client">Reference to client object</param>
+            <exception cref="T:System.ArgumentNullException">Throws ArgumentNullException if client is null.</exception>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Client.ClientReConnecter.Dispose">
+            <summary>
+            Disposes this object.
+            Does nothing if already disposed.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Client.ClientReConnecter.Client_Disconnected(System.Object,System.EventArgs)">
+            <summary>
+            Handles Disconnected event of _client object.
+            </summary>
+            <param name="sender">Source of the event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Client.ClientReConnecter.ReconnectTimer_Elapsed(System.Object,System.EventArgs)">
+            <summary>
+            Hadles Elapsed event of _reconnectTimer.
+            </summary>
+            <param name="sender">Source of the event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Client.IConnectableClient">
+            <summary>
+            Represents a client for MBT servers.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.Mbt.Client.IConnectableClient.Connected">
+            <summary>
+            This event is raised when client connected to server.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.Mbt.Client.IConnectableClient.Disconnected">
+            <summary>
+            This event is raised when client disconnected from server.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Client.IConnectableClient.ConnectTimeout">
+            <summary>
+            Timeout for connecting to a server (as milliseconds).
+            Default value: 15 seconds (15000 ms).
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Client.IConnectableClient.CommunicationState">
+            <summary>
+            Gets the current communication state.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Client.IConnectableClient.Connect">
+            <summary>
+            Connects to server.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Client.IConnectableClient.Disconnect">
+            <summary>
+            Disconnects from server.
+            Does nothing if already disconnected.
+            </summary>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Client.IMbtClient">
+            <summary>
+            Represents a client to connect to server.
+            </summary>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Client.MbtClientBase">
+            <summary>
+            This class provides base functionality for client classes.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.Mbt.Client.MbtClientBase.MessageReceived">
+            <summary>
+            This event is raised when a new message is received.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.Mbt.Client.MbtClientBase.MessageSent">
+            <summary>
+            This event is raised when a new message is sent without any error.
+            It does not guaranties that message is properly handled and processed by remote application.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.Mbt.Client.MbtClientBase.Connected">
+            <summary>
+            This event is raised when communication channel closed.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.Mbt.Client.MbtClientBase.Disconnected">
+            <summary>
+            This event is raised when client disconnected from server.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Client.MbtClientBase.ConnectTimeout">
+            <summary>
+            Timeout for connecting to a server (as milliseconds).
+            Default value: 15 seconds (15000 ms).
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Client.MbtClientBase.WireProtocol">
+            <summary>
+            Gets/sets wire protocol that is used while reading and writing messages.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Client.MbtClientBase.CommunicationState">
+            <summary>
+            Gets the communication state of the Client.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Client.MbtClientBase.LastReceivedMessageTime">
+            <summary>
+            Gets the time of the last succesfully received message.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Client.MbtClientBase.LastSentMessageTime">
+            <summary>
+            Gets the time of the last succesfully received message.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Client.MbtClientBase.DefaultConnectionAttemptTimeout">
+            <summary>
+            Default timeout value for connecting a server.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Client.MbtClientBase._communicationChannel">
+            <summary>
+            The communication channel that is used by client to send and receive messages.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Client.MbtClientBase._pingTimer">
+            <summary>
+            This timer is used to send PingMessage messages to server periodically.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Client.MbtClientBase.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Client.MbtClientBase.Connect">
+            <summary>
+            Connects to server.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Client.MbtClientBase.Disconnect">
+            <summary>
+            Disconnects from server.
+            Does nothing if already disconnected.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Client.MbtClientBase.Dispose">
+            <summary>
+            Disposes this object and closes underlying connection.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Client.MbtClientBase.SendMessage(Hik.Communication.Mbt.Communication.Messages.IMbtMessage)">
+            <summary>
+            Sends a message to the server.
+            </summary>
+            <param name="message">Message to be sent</param>
+            <exception cref="T:Hik.Communication.Mbt.Communication.CommunicationStateException">Throws a CommunicationStateException if client is not connected to the server.</exception>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Client.MbtClientBase.CreateCommunicationChannel">
+            <summary>
+            This method is implemented by derived classes to create appropriate communication channel.
+            </summary>
+            <returns>Ready communication channel to communicate</returns>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Client.MbtClientBase.CommunicationChannel_MessageReceived(System.Object,Hik.Communication.Mbt.Communication.Messages.MessageEventArgs)">
+            <summary>
+            Handles MessageReceived event of _communicationChannel object.
+            </summary>
+            <param name="sender">Source of event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Client.MbtClientBase.CommunicationChannel_MessageSent(System.Object,Hik.Communication.Mbt.Communication.Messages.MessageEventArgs)">
+            <summary>
+            Handles MessageSent event of _communicationChannel object.
+            </summary>
+            <param name="sender">Source of event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Client.MbtClientBase.CommunicationChannel_Disconnected(System.Object,System.EventArgs)">
+            <summary>
+            Handles Disconnected event of _communicationChannel object.
+            </summary>
+            <param name="sender">Source of event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Client.MbtClientBase.PingTimer_Elapsed(System.Object,System.EventArgs)">
+            <summary>
+            Handles Elapsed event of _pingTimer to send PingMessage messages to server.
+            </summary>
+            <param name="sender">Source of event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Client.MbtClientBase.OnConnected">
+            <summary>
+            Raises Connected event.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Client.MbtClientBase.OnDisconnected">
+            <summary>
+            Raises Disconnected event.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Client.MbtClientBase.OnMessageReceived(Hik.Communication.Mbt.Communication.Messages.IMbtMessage)">
+            <summary>
+            Raises MessageReceived event.
+            </summary>
+            <param name="message">Received message</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Client.MbtClientBase.OnMessageSent(Hik.Communication.Mbt.Communication.Messages.IMbtMessage)">
+            <summary>
+            Raises MessageSent event.
+            </summary>
+            <param name="message">Received message</param>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Client.MbtClientFactory">
+            <summary>
+            This class is used to create MBT Clients to connect to a MBT server.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Client.MbtClientFactory.CreateClient(Hik.Communication.Mbt.Communication.EndPoints.MbtEndPoint)">
+            <summary>
+            Creates a new client to connect to a server using an end point.
+            </summary>
+            <param name="endpoint">End point of the server to connect it</param>
+            <returns>Created TCP client</returns>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Client.MbtClientFactory.CreateClient(System.String)">
+            <summary>
+            Creates a new client to connect to a server using an end point.
+            </summary>
+            <param name="endpointAddress">End point address of the server to connect it</param>
+            <returns>Created TCP client</returns>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Client.Tcp.MbtTcpClient">
+            <summary>
+            This class is used to communicate with server over TCP/IP protocol.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Client.Tcp.MbtTcpClient._serverEndPoint">
+            <summary>
+            The endpoint address of the server.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Client.Tcp.MbtTcpClient.#ctor(Hik.Communication.Mbt.Communication.EndPoints.Tcp.MbtTcpEndPoint)">
+            <summary>
+            Creates a new MbtTcpClient object.
+            </summary>
+            <param name="serverEndPoint">The endpoint address to connect to the server</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Client.Tcp.MbtTcpClient.CreateCommunicationChannel">
+            <summary>
+            Creates a communication channel using ServerIpAddress and ServerPort.
+            </summary>
+            <returns>Ready communication channel to communicate</returns>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Client.Tcp.TcpHelper">
+            <summary>
+            This class is used to simplify TCP socket operations.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Client.Tcp.TcpHelper.ConnectToServer(System.Net.EndPoint,System.Int32)">
+            <summary>
+            This code is used to connect to a TCP socket with timeout option.
+            </summary>
+            <param name="endPoint">IP endpoint of remote server</param>
+            <param name="timeoutMs">Timeout to wait until connect</param>
+            <returns>Socket object connected to server</returns>
+            <exception cref="T:System.Net.Sockets.SocketException">Throws SocketException if can not connect.</exception>
+            <exception cref="T:System.TimeoutException">Throws TimeoutException if can not connect within specified timeoutMs</exception>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Server.IMbtServer">
+            <summary>
+            Represents a MBT server that is used to accept and manage client connections.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.Mbt.Server.IMbtServer.ClientConnected">
+            <summary>
+            This event is raised when a new client connected to the server.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.Mbt.Server.IMbtServer.ClientDisconnected">
+            <summary>
+            This event is raised when a client disconnected from the server.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Server.IMbtServer.WireProtocolFactory">
+            <summary>
+            Gets/sets wire protocol factory to create IWireProtocol objects.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Server.IMbtServer.Clients">
+            <summary>
+            A collection of clients that are connected to the server.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Server.IMbtServer.Start">
+            <summary>
+            Starts the server.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Server.IMbtServer.Stop">
+            <summary>
+            Stops the server.
+            </summary>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Server.IMbtServerClient">
+            <summary>
+            Represents a client from a perspective of a server.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.Mbt.Server.IMbtServerClient.Disconnected">
+            <summary>
+            This event is raised when client disconnected from server.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Server.IMbtServerClient.ClientId">
+            <summary>
+            Unique identifier for this client in server.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Server.IMbtServerClient.RemoteEndPoint">
+            <summary>
+             Gets endpoint of remote application.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Server.IMbtServerClient.CommunicationState">
+            <summary>
+            Gets the current communication state.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Server.IMbtServerClient.Disconnect">
+            <summary>
+            Disconnects from server.
+            </summary>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Server.MbtServerBase">
+            <summary>
+            This class provides base functionality for server classes.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.Mbt.Server.MbtServerBase.ClientConnected">
+            <summary>
+            This event is raised when a new client is connected.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.Mbt.Server.MbtServerBase.ClientDisconnected">
+            <summary>
+            This event is raised when a client disconnected from the server.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Server.MbtServerBase.WireProtocolFactory">
+            <summary>
+            Gets/sets wire protocol that is used while reading and writing messages.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Server.MbtServerBase.Clients">
+            <summary>
+            A collection of clients that are connected to the server.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Server.MbtServerBase._connectionListener">
+            <summary>
+            This object is used to listen incoming connections.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Server.MbtServerBase.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Server.MbtServerBase.Start">
+            <summary>
+            Starts the server.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Server.MbtServerBase.Stop">
+            <summary>
+            Stops the server.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Server.MbtServerBase.CreateConnectionListener">
+            <summary>
+            This method is implemented by derived classes to create appropriate connection listener to listen incoming connection requets.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Server.MbtServerBase.ConnectionListener_CommunicationChannelConnected(System.Object,Hik.Communication.Mbt.Communication.Channels.CommunicationChannelEventArgs)">
+            <summary>
+            Handles CommunicationChannelConnected event of _connectionListener object.
+            </summary>
+            <param name="sender">Source of event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Server.MbtServerBase.Client_Disconnected(System.Object,System.EventArgs)">
+            <summary>
+            Handles Disconnected events of all connected clients.
+            </summary>
+            <param name="sender">Source of event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Server.MbtServerBase.OnClientConnected(Hik.Communication.Mbt.Server.IMbtServerClient)">
+            <summary>
+            Raises ClientConnected event.
+            </summary>
+            <param name="client">Connected client</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Server.MbtServerBase.OnClientDisconnected(Hik.Communication.Mbt.Server.IMbtServerClient)">
+            <summary>
+            Raises ClientDisconnected event.
+            </summary>
+            <param name="client">Disconnected client</param>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Server.MbtServerClient">
+            <summary>
+            This class represents a client in server side.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.Mbt.Server.MbtServerClient.MessageReceived">
+            <summary>
+            This event is raised when a new message is received.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.Mbt.Server.MbtServerClient.MessageSent">
+            <summary>
+            This event is raised when a new message is sent without any error.
+            It does not guaranties that message is properly handled and processed by remote application.
+            </summary>
+        </member>
+        <member name="E:Hik.Communication.Mbt.Server.MbtServerClient.Disconnected">
+            <summary>
+            This event is raised when client is disconnected from server.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Server.MbtServerClient.ClientId">
+            <summary>
+            Unique identifier for this client in server.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Server.MbtServerClient.CommunicationState">
+            <summary>
+            Gets the communication state of the Client.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Server.MbtServerClient.WireProtocol">
+            <summary>
+            Gets/sets wire protocol that is used while reading and writing messages.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Server.MbtServerClient.RemoteEndPoint">
+            <summary>
+             Gets endpoint of remote application.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Server.MbtServerClient.LastReceivedMessageTime">
+            <summary>
+            Gets the time of the last succesfully received message.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Server.MbtServerClient.LastSentMessageTime">
+            <summary>
+            Gets the time of the last succesfully received message.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Server.MbtServerClient._communicationChannel">
+            <summary>
+            The communication channel that is used by client to send and receive messages.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Server.MbtServerClient.#ctor(Hik.Communication.Mbt.Communication.Channels.ICommunicationChannel)">
+            <summary>
+            Creates a new MbtClient object.
+            </summary>
+            <param name="communicationChannel">The communication channel that is used by client to send and receive messages</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Server.MbtServerClient.Disconnect">
+            <summary>
+            Disconnects from client and closes underlying communication channel.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Server.MbtServerClient.SendMessage(Hik.Communication.Mbt.Communication.Messages.IMbtMessage)">
+            <summary>
+            Sends a message to the client.
+            </summary>
+            <param name="message">Message to be sent</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Server.MbtServerClient.CommunicationChannel_Disconnected(System.Object,System.EventArgs)">
+            <summary>
+            Handles Disconnected event of _communicationChannel object.
+            </summary>
+            <param name="sender">Source of event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Server.MbtServerClient.CommunicationChannel_MessageReceived(System.Object,Hik.Communication.Mbt.Communication.Messages.MessageEventArgs)">
+            <summary>
+            Handles MessageReceived event of _communicationChannel object.
+            </summary>
+            <param name="sender">Source of event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Server.MbtServerClient.CommunicationChannel_MessageSent(System.Object,Hik.Communication.Mbt.Communication.Messages.MessageEventArgs)">
+            <summary>
+            Handles MessageSent event of _communicationChannel object.
+            </summary>
+            <param name="sender">Source of event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Server.MbtServerClient.OnDisconnected">
+            <summary>
+            Raises Disconnected event.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Server.MbtServerClient.OnMessageReceived(Hik.Communication.Mbt.Communication.Messages.IMbtMessage)">
+            <summary>
+            Raises MessageReceived event.
+            </summary>
+            <param name="message">Received message</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Server.MbtServerClient.OnMessageSent(Hik.Communication.Mbt.Communication.Messages.IMbtMessage)">
+            <summary>
+            Raises MessageSent event.
+            </summary>
+            <param name="message">Received message</param>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Server.MbtServerFactory">
+            <summary>
+            This class is used to create MBT servers.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Server.MbtServerFactory.CreateServer(Hik.Communication.Mbt.Communication.EndPoints.MbtEndPoint)">
+            <summary>
+            Creates a new MBT Server using an EndPoint.
+            </summary>
+            <param name="endPoint">Endpoint that represents address of the server</param>
+            <returns>Created TCP server</returns>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Server.MbtServerManager">
+            <summary>
+            Provides some functionality that are used by servers.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Server.MbtServerManager._lastClientId">
+            <summary>
+            Used to set an auto incremential unique identifier to clients.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Server.MbtServerManager.GetClientId">
+            <summary>
+            Gets an unique number to be used as idenfitier of a client.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Server.ServerClientEventArgs">
+            <summary>
+            Stores client information to be used by an event.
+            </summary>
+        </member>
+        <member name="P:Hik.Communication.Mbt.Server.ServerClientEventArgs.Client">
+            <summary>
+            Client that is associated with this event.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Server.ServerClientEventArgs.#ctor(Hik.Communication.Mbt.Server.IMbtServerClient)">
+            <summary>
+            Creates a new ServerClientEventArgs object.
+            </summary>
+            <param name="client">Client that is associated with this event</param>
+        </member>
+        <member name="T:Hik.Communication.Mbt.Server.Tcp.MbtTcpServer">
+            <summary>
+            This class is used to create a TCP server.
+            </summary>
+        </member>
+        <member name="F:Hik.Communication.Mbt.Server.Tcp.MbtTcpServer._endPoint">
+            <summary>
+            The endpoint address of the server to listen incoming connections.
+            </summary>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Server.Tcp.MbtTcpServer.#ctor(Hik.Communication.Mbt.Communication.EndPoints.Tcp.MbtTcpEndPoint)">
+            <summary>
+            Creates a new MbtTcpServer object.
+            </summary>
+            <param name="endPoint">The endpoint address of the server to listen incoming connections</param>
+        </member>
+        <member name="M:Hik.Communication.Mbt.Server.Tcp.MbtTcpServer.CreateConnectionListener">
+            <summary>
+            Creates a TCP connection listener.
+            </summary>
+            <returns>Created listener object</returns>
+        </member>
+        <member name="T:Hik.Threading.SequentialItemProcessor`1">
+            <summary>
+            This class is used to process items sequentially in a multithreaded manner.
+            </summary>
+            <typeparam name="TItem">Type of item to process</typeparam>
+        </member>
+        <member name="F:Hik.Threading.SequentialItemProcessor`1._processMethod">
+            <summary>
+            The method delegate that is called to actually process items.
+            </summary>
+        </member>
+        <member name="F:Hik.Threading.SequentialItemProcessor`1._queue">
+            <summary>
+            Item queue. Used to process items sequentially.
+            </summary>
+        </member>
+        <member name="F:Hik.Threading.SequentialItemProcessor`1._currentProcessTask">
+            <summary>
+            A reference to the current Task that is processing an item in
+            ProcessItem method.
+            </summary>
+        </member>
+        <member name="F:Hik.Threading.SequentialItemProcessor`1._isProcessing">
+            <summary>
+            Indicates state of the item processing.
+            </summary>
+        </member>
+        <member name="F:Hik.Threading.SequentialItemProcessor`1._isRunning">
+            <summary>
+            A boolean value to control running of SequentialItemProcessor.
+            </summary>
+        </member>
+        <member name="F:Hik.Threading.SequentialItemProcessor`1._syncObj">
+            <summary>
+            An object to synchronize threads.
+            </summary>
+        </member>
+        <member name="M:Hik.Threading.SequentialItemProcessor`1.#ctor(System.Action{`0})">
+            <summary>
+            Creates a new SequentialItemProcessor object.
+            </summary>
+            <param name="processMethod">The method delegate that is called to actually process items</param>
+        </member>
+        <member name="M:Hik.Threading.SequentialItemProcessor`1.EnqueueMessage(`0)">
+            <summary>
+            Adds an item to queue to process the item.
+            </summary>
+            <param name="item">Item to add to the queue</param>
+        </member>
+        <member name="M:Hik.Threading.SequentialItemProcessor`1.Start">
+            <summary>
+            Starts processing of items.
+            </summary>
+        </member>
+        <member name="M:Hik.Threading.SequentialItemProcessor`1.Stop">
+            <summary>
+            Stops processing of items and waits stopping of current item.
+            </summary>
+        </member>
+        <member name="M:Hik.Threading.SequentialItemProcessor`1.ProcessItem">
+            <summary>
+            This method runs on a new seperated Task (thread) to process
+            items on the queue.
+            </summary>
+        </member>
+        <member name="T:Hik.Threading.Timer">
+            <summary>
+            This class is a timer that performs some tasks periodically.
+            </summary>
+        </member>
+        <member name="E:Hik.Threading.Timer.Elapsed">
+            <summary>
+            This event is raised periodically according to Period of Timer.
+            </summary>
+        </member>
+        <member name="P:Hik.Threading.Timer.Period">
+            <summary>
+            Task period of timer (as milliseconds).
+            </summary>
+        </member>
+        <member name="P:Hik.Threading.Timer.RunOnStart">
+            <summary>
+            Indicates whether timer raises Elapsed event on Start method of Timer for once.
+            Default: False.
+            </summary>
+        </member>
+        <member name="F:Hik.Threading.Timer._taskTimer">
+            <summary>
+            This timer is used to perfom the task at spesified intervals.
+            </summary>
+        </member>
+        <member name="F:Hik.Threading.Timer._running">
+            <summary>
+            Indicates that whether timer is running or stopped.
+            </summary>
+        </member>
+        <member name="F:Hik.Threading.Timer._performingTasks">
+            <summary>
+            Indicates that whether performing the task or _taskTimer is in sleep mode.
+            This field is used to wait executing tasks when stopping Timer.
+            </summary>
+        </member>
+        <member name="M:Hik.Threading.Timer.#ctor(System.Int32)">
+            <summary>
+            Creates a new Timer.
+            </summary>
+            <param name="period">Task period of timer (as milliseconds)</param>
+        </member>
+        <member name="M:Hik.Threading.Timer.#ctor(System.Int32,System.Boolean)">
+            <summary>
+            Creates a new Timer.
+            </summary>
+            <param name="period">Task period of timer (as milliseconds)</param>
+            <param name="runOnStart">Indicates whether timer raises Elapsed event on Start method of Timer for once</param>
+        </member>
+        <member name="M:Hik.Threading.Timer.Start">
+            <summary>
+            Starts the timer.
+            </summary>
+        </member>
+        <member name="M:Hik.Threading.Timer.Stop">
+            <summary>
+            Stops the timer.
+            </summary>
+        </member>
+        <member name="M:Hik.Threading.Timer.WaitToStop">
+            <summary>
+            Waits the service to stop.
+            </summary>
+        </member>
+        <member name="M:Hik.Threading.Timer.TimerCallBack(System.Object)">
+            <summary>
+            This method is called by _taskTimer.
+            </summary>
+            <param name="state">Not used argument</param>
+        </member>
+    </members>
+</doc>

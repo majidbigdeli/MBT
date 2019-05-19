@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0DC81B09-3ABF-4BB3-8C08-4E8EE4432BDC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Hik</RootNamespace>
+    <AssemblyName>Mbt</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Mbt.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Mbt.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Collections\ThreadSafeSortedList.cs" />
+    <Compile Include="Communication\MbtServices\Client\IMbtServiceClient.cs" />
+    <Compile Include="Communication\MbtServices\Client\MbtServiceClient.cs" />
+    <Compile Include="Communication\MbtServices\Client\MbtServiceClientBuilder.cs" />
+    <Compile Include="Communication\MbtServices\Communication\AutoConnectRemoteInvokeProxy.cs" />
+    <Compile Include="Communication\MbtServices\Communication\Messages\MbtRemoteException.cs" />
+    <Compile Include="Communication\MbtServices\Communication\Messages\MbtRemoteInvokeMessage.cs" />
+    <Compile Include="Communication\MbtServices\Communication\Messages\MbtRemoteInvokeReturnMessage.cs" />
+    <Compile Include="Communication\MbtServices\Communication\RemoteInvokeProxy.cs" />
+    <Compile Include="Communication\Mbt\Communication\Messengers\RequestReplyMessenger.cs" />
+    <Compile Include="Communication\MbtServices\Service\IMbtServiceApplication.cs" />
+    <Compile Include="Communication\MbtServices\Service\IMbtServiceClient.cs" />
+    <Compile Include="Communication\MbtServices\Service\MbtService.cs" />
+    <Compile Include="Communication\MbtServices\Service\MbtServiceApplication.cs" />
+    <Compile Include="Communication\MbtServices\Service\MbtServiceAttribute.cs" />
+    <Compile Include="Communication\MbtServices\Service\MbtServiceBuilder.cs" />
+    <Compile Include="Communication\MbtServices\Service\MbtServiceClient.cs" />
+    <Compile Include="Communication\MbtServices\Service\MbtServiceClientFactory.cs" />
+    <Compile Include="Communication\MbtServices\Service\ServiceClientEventArgs.cs" />
+    <Compile Include="Communication\Mbt\Client\ClientReConnecter.cs" />
+    <Compile Include="Communication\Mbt\Client\IConnectableClient.cs" />
+    <Compile Include="Communication\Mbt\Client\IMbtClient.cs" />
+    <Compile Include="Communication\Mbt\Client\MbtClientBase.cs" />
+    <Compile Include="Communication\Mbt\Client\MbtClientFactory.cs" />
+    <Compile Include="Communication\Mbt\Client\Tcp\MbtTcpClient.cs" />
+    <Compile Include="Communication\Mbt\Client\Tcp\TcpHelper.cs" />
+    <Compile Include="Communication\Mbt\Communication\Channels\CommunicationChannelBase.cs" />
+    <Compile Include="Communication\Mbt\Communication\Channels\CommunicationChannelEventArgs.cs" />
+    <Compile Include="Communication\Mbt\Communication\Channels\ConnectionListenerBase.cs" />
+    <Compile Include="Communication\Mbt\Communication\Channels\ICommunicationChannel.cs" />
+    <Compile Include="Communication\Mbt\Communication\Channels\IConnectionListener.cs" />
+    <Compile Include="Communication\Mbt\Communication\Channels\Tcp\TcpCommunicationChannel.cs" />
+    <Compile Include="Communication\Mbt\Communication\Channels\Tcp\TcpConnectionListener.cs" />
+    <Compile Include="Communication\Mbt\Communication\CommunicationStateException.cs" />
+    <Compile Include="Communication\Mbt\Communication\CommunicationStates.cs" />
+    <Compile Include="Communication\Mbt\Communication\CommunicationException.cs" />
+    <Compile Include="Communication\Mbt\Communication\EndPoints\MbtEndPoint.cs" />
+    <Compile Include="Communication\Mbt\Communication\EndPoints\Tcp\MbtTcpEndPoint.cs" />
+    <Compile Include="Communication\Mbt\Communication\Messengers\IMessenger.cs" />
+    <Compile Include="Communication\Mbt\Communication\Messages\IMbtMessage.cs" />
+    <Compile Include="Communication\Mbt\Communication\Messages\MessageEventArgs.cs" />
+    <Compile Include="Communication\Mbt\Communication\Messages\PingMessage.cs" />
+    <Compile Include="Communication\Mbt\Communication\Messages\MbtMessage.cs" />
+    <Compile Include="Communication\Mbt\Communication\Messages\MbtRawDataMessage.cs" />
+    <Compile Include="Communication\Mbt\Communication\Messages\MbtTextMessage.cs" />
+    <Compile Include="Communication\Mbt\Communication\Protocols\BinarySerialization\BinarySerializationProtocol.cs" />
+    <Compile Include="Communication\Mbt\Communication\Protocols\BinarySerialization\BinarySerializationProtocolFactory.cs" />
+    <Compile Include="Communication\Mbt\Communication\Protocols\IMbtWireProtocol.cs" />
+    <Compile Include="Communication\Mbt\Communication\Protocols\IMbtWireProtocolFactory.cs" />
+    <Compile Include="Communication\Mbt\Communication\Protocols\WireProtocolManager.cs" />
+    <Compile Include="Communication\Mbt\Communication\Messengers\SynchronizedMessenger.cs" />
+    <Compile Include="Communication\Mbt\Server\IMbtServer.cs" />
+    <Compile Include="Communication\Mbt\Server\IMbtServerClient.cs" />
+    <Compile Include="Communication\Mbt\Server\MbtServerBase.cs" />
+    <Compile Include="Communication\Mbt\Server\MbtServerClient.cs" />
+    <Compile Include="Communication\Mbt\Server\MbtServerFactory.cs" />
+    <Compile Include="Communication\Mbt\Server\MbtServerManager.cs" />
+    <Compile Include="Communication\Mbt\Server\ServerClientEventArgs.cs" />
+    <Compile Include="Communication\Mbt\Server\Tcp\MbtTcpServer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Threading\SequentialItemProcessor.cs" />
+    <Compile Include="Threading\Timer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Diagrams\ChannelsDiagram.cd" />
+    <None Include="Diagrams\ConnListenerDiagram.cd" />
+    <None Include="Diagrams\EndPointsDiagram.cd" />
+    <None Include="Diagrams\MessageObjectsDiagram.cd" />
+    <None Include="Diagrams\RequestReplyMessengerDiagram.cd" />
+    <None Include="Diagrams\RmiMessagesDiagram.cd" />
+    <None Include="Diagrams\MbtClientDiagram.cd" />
+    <None Include="Diagrams\MbtServerClientDiagram.cd" />
+    <None Include="Diagrams\MbtServerDiagram.cd" />
+    <None Include="Diagrams\MbtServiceClientDiagram.cd" />
+    <None Include="Diagrams\MbtServiceDiagram.cd" />
+    <None Include="Diagrams\ServiceSideClientDiagram.cd" />
+    <None Include="Diagrams\WireProtocolsDiagram.cd" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
